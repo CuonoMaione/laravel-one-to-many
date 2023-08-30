@@ -26,4 +26,8 @@ class Post extends Model
     {
         return 'slug';
     }
+
+    public function Type(){
+        return $this->belongsTo(Type::class);
+    }
 }

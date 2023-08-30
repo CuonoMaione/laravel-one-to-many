@@ -7,7 +7,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    ID: {{  $post->id }} - slug: {{ $post->slug }} 
+                    ID: {{  $post->id }} - slug: {{ $post->slug }} - {{ $post->type->name}}
                 </div>
                 @if (str_starts_with($post->image, 'http'))
                     <img src="{{ $post->image }}" alt="" id="show-posts">
