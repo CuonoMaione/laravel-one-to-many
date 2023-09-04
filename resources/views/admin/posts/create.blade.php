@@ -17,6 +17,23 @@
               <div class="alert alert-danger">{{ $message }}</div>
             @enderror
             <div class="mb-3">
+              <label for="technology"> Technology</label>
+              @foreach ($technologies as $technology)
+              <input type="checkbox" name="technologies[]" class="form-check-label" value="{{$technology->id}}">
+              <label for="technology_id"> {{ $technology->name }}
+              </label>
+              @endforeach
+
+              <label for="type_id">
+                Type
+              </label>
+              <select class="form-select" name="type_id" id="type_id">
+                @foreach ($types as $type) 
+                <option value="{{ $type->id}}" name="type_id" id="type_id">{{ $type->name }}</option>
+                @endforeach
+              </select>
+            </div>
+            <div class="mb-3">
               <label for="image" class="form-label">Image</label>
               <input type="file" name="image" id="" class="form-control" placeholder="Upload image">
             </div>

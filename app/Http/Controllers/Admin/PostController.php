@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use App\Models\Technology;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rules\Exists;
 
 class PostController extends Controller
 {
@@ -23,8 +26,12 @@ class PostController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
+
     {
-        return view('admin.posts.create');
+        $types = Type::all();
+        $technologies = Technology::all();
+        return view('admin.posts.create', compact('technologies' , 'types'));
+
     }
 
     /**
@@ -36,6 +43,8 @@ class PostController extends Controller
         $data = $request->validate([
             'title' => ['required', 'unique:posts' , 'max:255'],
             'content' => ['required', 'min:10' ],
+            'type_id' => ['required','exists:types,id'],
+            'technologies' => ['exists:technologies,id'],
             
         ]);
 
@@ -43,6 +52,10 @@ class PostController extends Controller
         $newPost = Post::create($data);
         $newPost->slug = Str::of("$newPost->id " .  $data['title'])->slug('-');
         $newPost->save();
+
+        if ($request->has('technologies')){
+            $newPost->technologies()->sync($request->technologies);
+        }
 
         return redirect()->route('admin.posts.index');
     }

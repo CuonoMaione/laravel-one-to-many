@@ -6,9 +6,19 @@
         <div class="col-12">
 
             <div class="card">
-                <div class="card-header">
-                    ID: {{  $post->id }} - slug: {{ $post->slug }} - {{ $post->type->name}}
-                </div>
+                <h5 class="card-header">
+                    ID: {{  $post->id }} - slug: {{ $post->slug }} - {{$post->type->name}}
+                </h5>
+                @if ( count($post->technologies) > 0)
+                <h6>
+                    technology : 
+                    @foreach ($post->technologies as $technology)
+                  {{ $technology->name }} 
+                    @endforeach
+                </h6>
+                    
+                
+                @endif
                 @if (str_starts_with($post->image, 'http'))
                     <img src="{{ $post->image }}" alt="" id="show-posts">
                 
