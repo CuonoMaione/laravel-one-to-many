@@ -7,7 +7,7 @@
 
             <div class="card">
                 <h5 class="card-header">
-                    ID: {{  $post->id }} - slug: {{ $post->slug }} - {{$post->type->name}}
+                    ID: {{  $post->id }} - slug: {{ $post->slug }} - 
                 </h5>
                 @if ( count($post->technologies) > 0)
                 <h6>
